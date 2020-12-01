@@ -18,12 +18,14 @@ DATA: kundeNr(30) TYPE c,
 IF land = 'DEUTSCHLAND'.
   landModified := '0049'.
 endif.
+
 *Für Privat Kunden hat @kundeTypModified Value P, für Geschäfts Kunden Value G
 IF kundeTyp = 'PRIVAT'.
   kundeTypModified := 'P'.
 ELSEIF kundeTyp = 'GESCHÄFTS'.
   kundeTypModified := 'G'.
 endif.
+
 *Erst prüffen wir ob es ein Region aus 2 Wörter mit - besteht,
 *wir brauchen 1 Buchstabe und 1 Buchstabe nach -
 *search findet Position, wo - steht und speichert es in @firstCharAfterMinus,
@@ -37,7 +39,9 @@ IF region CA '-'.
 ELSE.
   regionModified := region(1).
 ENDIF.
+
 *hier werden alle modified Ergebnise in ein @kundeNr konkatinieren.
 concatenate landModified kundeTypModified regionModified laufNr into kundeNr.
+
 *Ausgabe der generierten Kunden Nummer
 WRITE: / 'DIE GENERIERTE KUNDENNUMER LAUTET: <' NO-GAP, kundeNr NO-GAP ,'>'.
