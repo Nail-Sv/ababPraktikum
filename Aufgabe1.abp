@@ -1,5 +1,7 @@
 REPORT Z_WEST13_HELLOWORLD.
 
+*REPORT Z_WEST13_AUFGABE1.
+
 parameters: land(20) TYPE c,
             kundeTyp(10) TYPE c,
             region(30) TYPE c,
@@ -33,4 +35,4 @@ ENDIF.
 
 concatenate landModified kundeTypModified regionModified laufNr into kundeNr.
 
-WRITE: kundeNr.
+WRITE: / 'DIE GENERIERTE KUNDENNUMER LAUTET: <' NO-GAP, kundeNr NO-GAP ,'>'.
