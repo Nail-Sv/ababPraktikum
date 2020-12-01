@@ -1,0 +1,36 @@
+REPORT Z_WEST13_HELLOWORLD.
+
+parameters: land(20) TYPE c,
+            kundeTyp(10) TYPE c,
+            region(30) TYPE c,
+            laufNr(5) TYPE c.
+
+
+DATA: kundeNr(30) TYPE c.
+DATA: landModified(4) TYPE c.
+DATA: kundeTypModified(1) TYPE c.
+DATA: regionModified(2) TYPE c.
+DATA: firstCharAfterMinus(20) TYPE i.
+
+
+IF land = 'DEUTSCHLAND'.
+  landModified := '0049'.
+endif.
+
+IF kundeTyp = 'PRIVAT'.
+  kundeTypModified := 'P'.
+ELSEIF kundeTyp = 'GESCHÄFTS'.
+  kundeTypModified := 'G'.
+endif.
+
+IF region CA '-'.
+  search region for '-'.
+  firstCharAfterMinus := sy-fdpos + 1.
+  concatenate region(1) region+firstCharAfterMinus(1) into regionModified.
+ELSE.
+  regionModified := region(1).
+ENDIF.
+
+concatenate landModified kundeTypModified regionModified laufNr into kundeNr.
+
+WRITE: kundeNr.
