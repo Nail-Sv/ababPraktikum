@@ -1,0 +1,42 @@
+REPORT Z_WEST13_HELLOWORLD.
+
+*REPORT Z_WEST13_AUFGABE3.
+*Parameters eingegeben
+PARAMETERS : ausKette TYPE string,
+             zuMask TYPE string.
+
+*Ergebniss Definieren
+DATA : ergebnis LIKE ausKette,
+       maske TYPE c Value '*'.
+
+*es wurde verarbeitungsfunktion aus der Uebung 3, Seite 21 verwendet
+ergebnis = replace( val = ausKette sub = zuMask with = maske case = abap_true occ = 0 ).
+
+*Ergebniss Ausgabe
+WRITE: ergebnis.
+
+QWEERT123
+er -> QWE*T123
+
+
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+
+*REPORT Z_WEST13_AUFGABE3.
+*Parameters eingegeben
+PARAMETERS : ausKette TYPE string,
+             zuMask TYPE string.
+
+*Ergebniss Definieren
+DATA : ergebnis LIKE ausKette,
+       maske TYPE c Value '*'.
+
+ergebnis = translate( val = ausKette from = zuMask to = maske ).
+
+*Ergebniss Ausgabe
+WRITE: ergebnis.
+
+QWEERT123
+er -> QW**T123
