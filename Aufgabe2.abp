@@ -1,47 +1,19 @@
 REPORT Z_WEST13_HELLOWORLD.
 
-*REPORT Z_WEST13_AUFGABE1.
-*Parameters Eingabe
-parameters: land(20) TYPE c,
-            kundeTyp(10) TYPE c,
-            region(30) TYPE c,
-            laufNr(5) TYPE c.
+*REPORT Z_WEST13_AUFGABE2.
+*Initialisierung Geburtstag Datum Feld
+PARAMETERS: gDatum LIKE sy-datum.
 
-*Erstellung Variablen für Speicherung modifizierte Eingabe Parameters
-DATA: kundeNr(30) TYPE c,
-      landModified(4) TYPE c,
-      kundeTypModified(1) TYPE c,
-      regionModified(2) TYPE c,
-      firstCharAfterMinus(20) TYPE i.
+*@diffTagen Unterschied zwischen heutige Datum und Geburtstag datum
+*@dateFuture Zeigt Datum in der Zukunft
+DATA: diffTagen TYPE i,
+      dateFuture TYPE d.
 
-*Falls in Parametr Deutschland eingegeben wurde, dann ändern wir @landModified auf 0049
-IF land = 'DEUTSCHLAND'.
-  landModified := '0049'.
-endif.
 
-*Für Privat Kunden hat @kundeTypModified Value P, für Geschäfts Kunden Value G
-IF kundeTyp = 'PRIVAT'.
-  kundeTypModified := 'P'.
-ELSEIF kundeTyp = 'GESCHÄFTS'.
-  kundeTypModified := 'G'.
-endif.
+diffTagen = sy-datum - gDatum.
+dateFuture = gDatum + 11111.
 
-*Erst prüffen wir ob es ein Region aus 2 Wörter mit - besteht,
-*wir brauchen 1 Buchstabe und 1 Buchstabe nach -
-*search findet Position, wo - steht und speichert es in @firstCharAfterMinus,
-*da wir erste Buchstabe nach - brauchen, schieben wir diese Position sy-fdpos + 1
-*am Ende konkatinieren beide Buchstaben in @regionModified
-*Alternativ: falls es ein Region keine - hat, dann hollen wir einfach 1 Buchstabe @region(1)
-IF region CA '-'.
-  search region for '-'.
-  firstCharAfterMinus := sy-fdpos + 1.
-  concatenate region(1) region+firstCharAfterMinus(1) into regionModified.
-ELSE.
-  regionModified := region(1).
-ENDIF.
 
-*hier werden alle modified Ergebnise in ein @kundeNr konkatinieren.
-concatenate landModified kundeTypModified regionModified laufNr into kundeNr.
 
-*Ausgabe der generierten Kunden Nummer
-WRITE: / 'DIE GENERIERTE KUNDENNUMER LAUTET: <' NO-GAP, kundeNr NO-GAP ,'>'.
+WRITE: 'Anzahl Tagen zwichen Heute und Geburtstag ' NO-GAP, diffTagen NO-GAP, '.',
+        /'11111. Lebenstag wird/ist auf das Jahr ' NO-GAP, dateFuture(4) NO-GAP, ' gefallen'.
