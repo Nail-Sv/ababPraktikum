@@ -4,16 +4,14 @@ REPORT Z_WEST13_HELLOWORLD.
 *Initialisierung Geburtstag Datum Feld
 PARAMETERS: gDatum LIKE sy-datum.
 
-*@diffTagen Unterschied zwischen heutige Datum und Geburtstag datum
-*@dateFuture Zeigt Datum in der Zukunft
+*@diffTagen Unterschied zwischen heutiges Datum und Geburtstag Datum
+*@dateFuture zeigt Datum in der Zukunft
 DATA: diffTagen TYPE i,
       dateFuture TYPE d.
-
 
 diffTagen = sy-datum - gDatum.
 dateFuture = gDatum + 11111.
 
 
-
-WRITE: 'Anzahl Tagen zwichen Heute und Geburtstag ' NO-GAP, diffTagen NO-GAP, '.',
+WRITE: 'Anzahl Tagen zwischen Heute und Geburtstag: ' NO-GAP, diffTagen NO-GAP, '.',
         /'11111. Lebenstag wird/ist auf das Jahr ' NO-GAP, dateFuture(4) NO-GAP, ' gefallen'.

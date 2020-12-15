@@ -1,5 +1,53 @@
 REPORT Z_WEST13_HELLOWORLD.
 
+PARAMETERS: ausKette TYPE string,
+            zuMask TYPE string.
+
+
+DATA: ergebnis LIKE ausKette,
+      lengthKette TYPE i,
+      lengthMask TYPE i,
+      counter TYPE i VALUE 0,
+      haelfte1 TYPE string,
+      haelfte2 TYPE string.
+
+lengthKette = STRLEN( ausKette ).
+lengthMask = STRLEN( zuMask ).
+
+
+DO lengthKette TIMES.
+
+  IF ausKette CA zuMask AND lengthMask = 1.
+    SPLIT ausKette AT zuMask INTO haelfte1 haelfte2.
+    CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
+    ausKette = ergebnis.
+  ELSEIF ausKette NA zuMask.
+    ergebnis = ausKette.
+  ENDIF.
+//TODO buchstabliche prüfung fehlt noch
+  IF ausKette CA zuMask AND lengthMask > 1.
+    do lengthMask TIMES.
+      SPLIT ausKette AT zuMask+counter(1) INTO haelfte1 haelfte2.
+      CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
+      ausKette = ergebnis.
+      counter = counter + 1.
+      WRITE / 'OK'.
+    ENDDO.
+
+  ENDIF.
+
+
+
+ENDDO.
+
+WRITE / ergebnis.
+
+
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+
 *REPORT Z_WEST13_AUFGABE3.
 *Parameters eingegeben
 PARAMETERS : ausKette TYPE string,
@@ -17,7 +65,8 @@ WRITE: ergebnis.
 
 QWEERT123
 er -> QWE*T123
-
+e -> QW**RT123
+e1 -> QWEERT123
 
 
 
@@ -40,3 +89,6 @@ WRITE: ergebnis.
 
 QWEERT123
 er -> QW**T123
+e -> QW**RT123
+e1 -> QW**
+rt -> QWEE*123
