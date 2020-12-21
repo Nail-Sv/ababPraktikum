@@ -1,0 +1,97 @@
+REPORT Z_WEST13_HELLOWORLD.
+*REPORT Z_WEST13_AUFGABE4.
+
+* TYPES: BEGIN OF eintraege,
+*                 znr(5) TYPE i,
+*                 mandt(3) TYPE c,
+*                 zerstell(10) TYPE c,
+*                 zname(20) TYPE c,
+*                 zartikel(20) TYPE c,
+*                 zdatum(8) TYPE d,
+*                 umsatz TYPE p DECIMALS 2,
+*         END OF eintraege.
+
+* DATA: eintraegen TYPE TABLE OF eintraege,
+*       wa_eintraegen TYPE eintraege.
+
+DATA: eintraegen TYPE TABLE OF ZWEST_SALES,
+      wa_eintraegen TYPE ZWEST_SALES.
+
+wa_eintraegen-znr = 35.
+wa_eintraegen-mandt = '904'.
+wa_eintraegen-zerstell = 'WEST113'.
+wa_eintraegen-zname = 'Nail'.
+wa_eintraegen-zartikel = 'Koeftespiess'.
+wa_eintraegen-zdatum = '20201221'.
+wa_eintraegen-umsatz = '150.00'.
+APPEND wa_eintraegen TO eintraegen.
+wa_eintraegen-znr = 36.
+wa_eintraegen-mandt = '904'.
+wa_eintraegen-zerstell = 'WEST113'.
+wa_eintraegen-zname = 'Nail'.
+wa_eintraegen-zartikel = 'Play Station 5'.
+wa_eintraegen-zdatum = '20201221'.
+wa_eintraegen-umsatz = '499.99'.
+APPEND wa_eintraegen TO eintraegen.
+wa_eintraegen-znr = 37.
+wa_eintraegen-mandt = '904'.
+wa_eintraegen-zerstell = 'WEST113'.
+wa_eintraegen-zname = 'Nail'.
+wa_eintraegen-zartikel = 'SAP'.
+wa_eintraegen-zdatum = '20201221'.
+wa_eintraegen-umsatz = '5000.50'.
+APPEND wa_eintraegen TO eintraegen.
+wa_eintraegen-znr = 38.
+wa_eintraegen-mandt = '904'.
+wa_eintraegen-zerstell = 'WEST113'.
+wa_eintraegen-zname = 'Nail'.
+wa_eintraegen-zartikel = 'Google'.
+wa_eintraegen-zdatum = '20201221'.
+wa_eintraegen-umsatz = '3000.50'.
+APPEND wa_eintraegen TO eintraegen.
+wa_eintraegen-znr = 39.
+wa_eintraegen-mandt = '904'.
+wa_eintraegen-zerstell = 'WEST113'.
+wa_eintraegen-zname = 'Nail'.
+wa_eintraegen-zartikel = 'Bitcoin'.
+wa_eintraegen-zdatum = '20201221'.
+wa_eintraegen-umsatz = '19238.00'.
+APPEND wa_eintraegen TO eintraegen.
+
+* READ TABLE eintraegen INTO wa_eintraegen INDEX 0.
+
+
+
+LOOP AT eintraegen INTO wa_eintraegen FROM 1 TO 5.
+* WRITE: / wa_eintraegen-znr,
+* wa_eintraegen-mandt,
+* wa_eintraegen-zerstell,
+* wa_eintraegen-zname,
+* wa_eintraegen-zartikel,
+* wa_eintraegen-zdatum,
+* wa_eintraegen-umsatz.
+INSERT INTO ZWEST_SALES VALUES wa_eintraegen.
+* INSERT INTO ZWEST_SALES VALUES ( wa_eintraegen-znr,
+* wa_eintraegen-mandt,
+* wa_eintraegen-zerstell,
+* wa_eintraegen-zname,
+* wa_eintraegen-zartikel,
+* wa_eintraegen-zdatum,
+* wa_eintraegen-umsatz ).
+ENDLOOP.
+
+
+              
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: ZWEST_SALES.
+
+SELECT * FROM ZWEST_SALES.
+WRITE: / ' ', ZWEST_SALES-znr,
+              ZWEST_SALES-mandt,
+              ZWEST_SALES-zerstell,
+              ZWEST_SALES-zname,
+              ZWEST_SALES-zartikel,
+              ZWEST_SALES-zdatum,
+              ZWEST_SALES-umsatz.
+ENDSELECT.

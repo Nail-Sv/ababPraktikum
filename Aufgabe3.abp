@@ -1,42 +1,33 @@
 REPORT Z_WEST13_HELLOWORLD.
 
+*Zeichenkette einlesen
 PARAMETERS: ausKette TYPE string,
-            zuMask TYPE string.
+            zuMask TYPE c.
 
 
 DATA: ergebnis LIKE ausKette,
       lengthKette TYPE i,
-      lengthMask TYPE i,
-      counter TYPE i VALUE 0,
       haelfte1 TYPE string,
       haelfte2 TYPE string.
 
+*wie lang ist unsere Zeichenkette
 lengthKette = STRLEN( ausKette ).
-lengthMask = STRLEN( zuMask ).
 
-
+*Die Anzahl der Wiederholungen in einer Schleife hängt davon ab,
+*wie viele Zeichen sich in der Zeile befinden,
+*wird ausKette auf zwei Tele ausgeteilt, erste Teil enhält sich
+*alles was vor dem Mask Symbol ist, zweite Teil enthält sich alles,
+*was nach dem Mask Symbol ist, solcherweise wird das Mask symbol
+*aus der Kette quasi gelöscht und mit CONCATENATE auf "*" ersetzt.
 DO lengthKette TIMES.
 
-  IF ausKette CA zuMask AND lengthMask = 1.
+  IF ausKette CA zuMask.
     SPLIT ausKette AT zuMask INTO haelfte1 haelfte2.
     CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
     ausKette = ergebnis.
   ELSEIF ausKette NA zuMask.
     ergebnis = ausKette.
   ENDIF.
-//TODO buchstabliche prüfung fehlt noch
-  IF ausKette CA zuMask AND lengthMask > 1.
-    do lengthMask TIMES.
-      SPLIT ausKette AT zuMask+counter(1) INTO haelfte1 haelfte2.
-      CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
-      ausKette = ergebnis.
-      counter = counter + 1.
-      WRITE / 'OK'.
-    ENDDO.
-
-  ENDIF.
-
-
 
 ENDDO.
 
@@ -74,7 +65,7 @@ e1 -> QWEERT123
 REPORT Z_WEST13_HELLOWORLD.
 
 *REPORT Z_WEST13_AUFGABE3.
-*Parameters eingegeben
+*Zeichenkette einlesen
 PARAMETERS : ausKette TYPE string,
              zuMask TYPE string.
 
