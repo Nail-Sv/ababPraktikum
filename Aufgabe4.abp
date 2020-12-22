@@ -58,14 +58,13 @@ ENDLOOP.
 
 
 * LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
-* * WRITE: / wa_eintraege-znr,
-* * wa_eintraege-mandt,
-* * wa_eintraege-zerstell,
-* * wa_eintraege-zname,
-* * wa_eintraege-zartikel,
-* * wa_eintraege-zdatum,
-* * wa_eintraege-umsatz.
-* INSERT INTO ZWEST_SALES VALUES wa_eintraege.
+* WRITE: / wa_eintraege-znr,
+* wa_eintraege-mandt,
+* wa_eintraege-zerstell,
+* wa_eintraege-zname,
+* wa_eintraege-zartikel,
+* wa_eintraege-zdatum,
+* wa_eintraege-umsatz.
 * ENDLOOP.
 
 
