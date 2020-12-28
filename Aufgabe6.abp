@@ -1,0 +1,119 @@
+REPORT Z_WEST13_HELLOWORLD.
+*REPORT Z_WEST113_WS20_AUFGABE6.
+
+TABLES: zwest_ezs.
+
+PARAMETERS: mandant LIKE zwest_ezs-zmandt DEFAULT '904',
+oteil LIKE zwest_ezs-z_o_teil DEFAULT '100-400',
+menge LIKE zwest_ezs-z_menge DEFAULT '1'.
+
+DATA: wa_ezs TYPE zwest_ezs.
+
+CALL FUNCTION 'Z_STL'
+EXPORTING
+zmat = oteil
+zdispost = 0
+zmenge = 1.
+
+
+
+
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: zwest_ezs.
+
+SELECT * FROM zwest_ezs.
+WRITE: / ' ',
+zwest_ezs-zmandt,
+zwest_ezs-z_o_teil,
+zwest_ezs-z_u_teil,
+zwest_ezs-z_menge.
+ENDSELECT.
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: zwest_mara.
+
+SELECT * FROM zwest_mara.
+WRITE: / ' ',
+zwest_mara-zmandt,
+zwest_mara-zartnr,
+zwest_mara-zartikel,
+zwest_mara-zdispost.
+ENDSELECT.
+
+* FUNCTION Z_STL.
+*
+* *"----------------------------------------------------------------------
+* *"*"Lokale Schnittstelle:
+* *"  IMPORTING
+* *"     REFERENCE(ZMAT) TYPE  MATNR
+* *"     REFERENCE(ZDISPOST) TYPE  INT4
+* *"     REFERENCE(ZMENGE) TYPE  INT4
+* *"----------------------------------------------------------------------
+*
+*     TAbLEs: zwest_ezs.
+*     DATA: ezs Type TAble OF zwest_ezs,
+*         wa_ezs Type zwest_ezs,
+*         nstufe Like Zwest_mara-zdispost.
+*     skip.
+*     DO zdispost Times.
+*       Write: '.'.
+*     EndDO.
+*     Write: zmat , 30 zmenge.
+*
+*     Select * From zwest_ezs INTO TAbLE ezs
+*       where z_o_teil = zmat.
+*       If sy-dbcnt > 0.
+*         nstufe = zdispost + 1.
+*         LOOP at ezs into wa_ezs.
+*
+*           CALL FUNCTION 'Z_STL'
+*             Exporting
+*               zmat = wa_ezs-z_u_teil
+*               zdispost = nstufe
+*               zmenge = wa_ezs-z_menge.
+*
+*         EndLOOP.
+*       Endif.
+*
+*
+*
+* ENDFUNCTION.
+
+
+* FUNCTION Z_STL.
+* TABLES: zwest_ezs.
+* DATA: ezs TYPE TABLE OF zwest_ezs,
+* wa_ezs TYPE zwest_ezs,
+* nstufe LIKE zwest_mara-zdispost.
+*
+* SKIP.
+* DO zdispost TIMES.
+* WRITE: '.'.
+* ENDDO.
+* WRITE: zmat, 30 zmenge.
+*
+* SELECT * FROM zwest_ezs INTO TABLE ezs
+* WHERE z_o_teil = zmat.
+* IF sy-dbcnt > 0.
+* nstufe = zdispost + 1.
+* LOOP AT ezs INTO wa_ezs.
+*
+* CALL FUNKTION 'Z_STL'
+* EXPORTING
+* zmat = wa_ezs-z_u_teil
+* zdispost = nstufe
+* zmenge = wa_ezs-z_menge.
+* ENDLOOP.
+* ENDIF.
+*
+* ENDFUNCTION.
+
+
+* CALL FUNCTION 'Z_STL'
+* EXPORTING
+* zmat = oteil
+* zdispost = 0
+* zmenge = 1.
