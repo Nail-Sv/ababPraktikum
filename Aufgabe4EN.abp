@@ -1,0 +1,107 @@
+REPORT Z_WEST13_HELLOWORLD.
+*REPORT Z_WEST113_AUFGABE4.
+
+*Eine interne Tabelle auf der Basis eine vordefinierte ZWEST_SALES Tabelle erstellen
+DATA: eintraege TYPE TABLE OF ZWEST_SALES,
+      wa_eintraege TYPE ZWEST_SALES.
+
+*Datensaetze in den internen Tabelle einfügen
+wa_eintraege-ZNO = -5.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Koeftespiess'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '150.00'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF
+
+wa_eintraege-ZNO = 36.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Play Station 5'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '499.99'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF
+wa_eintraege-ZNO = 37.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'SAP'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '5000.50'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF
+
+wa_eintraege-ZNO = 38.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Google'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '3000.50'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF
+
+wa_eintraege-ZNO = 39.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Bitcoin'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '19238.00'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF
+
+*Laut der Aufgabenstellung 5 Sätze aus der internen Tabelle
+*in der Tabelle ZWEST_SALES einsetzen
+LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
+  INSERT INTO ZWEST_SALES VALUES wa_eintraege.
+ENDLOOP.
+
+
+
+
+
+* LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
+* WRITE: / wa_eintraege-ZNO,
+* wa_eintraege-mandt,
+* wa_eintraege-zsapuser,
+* wa_eintraege-zemployee,
+* wa_eintraege-zarticel,
+* wa_eintraege-zdate,
+* wa_eintraege-zrevenue.
+* ENDLOOP.
+
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: ZWEST_SALES.
+
+SELECT * FROM ZWEST_SALES.
+WRITE: / ' ', ZWEST_SALES-ZNO,
+              ZWEST_SALES-mandt,
+              ZWEST_SALES-zsapuser,
+              ZWEST_SALES-zemployee,
+              ZWEST_SALES-zarticel,
+              ZWEST_SALES-zdate,
+              ZWEST_SALES-zrevenue.
+ENDSELECT.

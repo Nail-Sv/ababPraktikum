@@ -1,35 +1,45 @@
-REPORT Z_WEST13_HELLOWORLD.
-
-*Zeichenkette einlesen
-PARAMETERS: ausKette TYPE string,
-            zuMask TYPE c.
+REPORT z_west13_helloworld.
 
 
-DATA: ergebnis LIKE ausKette,
-      lengthKette TYPE i,
-      haelfte1 TYPE string,
-      haelfte2 TYPE string.
+PARAMETERS: auskette TYPE string,
+            zumask   TYPE string.
 
-*wie lang ist unsere Zeichenkette
-lengthKette = STRLEN( ausKette ).
 
-*Die Anzahl der Wiederholungen in einer Schleife hängt davon ab,
-*wie viele Zeichen sich in der Zeile befinden,
-*wird ausKette auf zwei Tele ausgeteilt, erste Teil enhält sich
-*alles was vor dem Mask Symbol ist, zweite Teil enthält sich alles,
-*was nach dem Mask Symbol ist, solcherweise wird das Mask symbol
-*aus der Kette quasi gelöscht und mit CONCATENATE auf "*" ersetzt.
-DO lengthKette TIMES.
+DATA: ergebnis     LIKE auskette,
+      lengthkette  TYPE i,
+      lenghmask    TYPE i,
+      index        TYPE i,
+      naechstesymb TYPE string,
+      haelfte1     TYPE string,
+      haelfte2     TYPE string.
 
-  IF ausKette CA zuMask.
-    SPLIT ausKette AT zuMask INTO haelfte1 haelfte2.
-    CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
-    ausKette = ergebnis.
-  ELSEIF ausKette NA zuMask.
-    ergebnis = ausKette.
-  ENDIF.
 
-ENDDO.
+lengthkette = strlen( auskette ).
+lenghmask = strlen( zumask ).
+
+
+* Die Anzahl der Wiederholungen der äußeren Schleife hängt davon ab,
+* wie viele Buchstaben ersetzt werden müssen. Die innere Schleife
+* prüfft jeweils einen Buchstaben über die gesamte Zeile. Wenn das
+* gewünschte Zeichen gefunden wurde, wird dieser Teil durch CONCATENATE
+* durch ein Sternchen ersetzt
+
+WHILE index < lenghmask.
+  naechstesymb = zumask+index(1).
+
+  DO lengthkette TIMES.
+    IF auskette CA naechstesymb.
+      SPLIT auskette AT naechstesymb INTO haelfte1 haelfte2.
+      CONCATENATE haelfte1 '*' haelfte2 INTO ergebnis.
+      auskette = ergebnis.
+    ELSEIF auskette NA naechstesymb.
+      ergebnis = auskette.
+    ENDIF.
+  ENDDO.
+
+  ADD 1 TO index.
+ENDWHILE.
+
 
 WRITE / ergebnis.
 
@@ -37,49 +47,41 @@ WRITE / ergebnis.
 
 
 
-REPORT Z_WEST13_HELLOWORLD.
+
+
+REPORT z_west13_helloworld.
 
 *REPORT Z_WEST13_AUFGABE3.
 *Parameters eingegeben
-PARAMETERS : ausKette TYPE string,
-             zuMask TYPE string.
+PARAMETERS : auskette TYPE string,
+             zumask   TYPE string.
 
 *Ergebniss Definieren
-DATA : ergebnis LIKE ausKette,
-       maske TYPE c Value '*'.
+DATA : ergebnis LIKE auskette,
+       maske    TYPE c VALUE '*'.
 
 *es wurde verarbeitungsfunktion aus der Uebung 3, Seite 21 verwendet
-ergebnis = replace( val = ausKette sub = zuMask with = maske case = abap_true occ = 0 ).
+ergebnis = replace( val = auskette sub = zumask with = maske case = abap_true occ = 0 ).
 
 *Ergebniss Ausgabe
 WRITE: ergebnis.
 
-QWEERT123
-er -> QWE*T123
-e -> QW**RT123
-e1 -> QWEERT123
 
 
 
 
-REPORT Z_WEST13_HELLOWORLD.
+REPORT z_west13_helloworld.
 
 *REPORT Z_WEST13_AUFGABE3.
 *Zeichenkette einlesen
-PARAMETERS : ausKette TYPE string,
-             zuMask TYPE string.
+PARAMETERS : auskette TYPE string,
+             zumask   TYPE string.
 
 *Ergebniss Definieren
-DATA : ergebnis LIKE ausKette,
-       maske TYPE c Value '*'.
+DATA : ergebnis LIKE auskette,
+       maske    TYPE c VALUE '*'.
 
-ergebnis = translate( val = ausKette from = zuMask to = maske ).
+ergebnis = translate( val = auskette from = zumask to = maske ).
 
 *Ergebniss Ausgabe
 WRITE: ergebnis.
-
-QWEERT123
-er -> QW**T123
-e -> QW**RT123
-e1 -> QW**
-rt -> QWEE*123

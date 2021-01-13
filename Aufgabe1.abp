@@ -1,38 +1,39 @@
-REPORT Z_WEST13_HELLOWORLD.
+REPORT Z_WEST113_WS20_AUFGABE1.
 
-*REPORT Z_WEST13_AUFGABE1.
+REPORT z_west13_helloworld.
+
 *Parameters Eingabe
-parameters: land(20) TYPE c,
-            kundeTyp(10) TYPE c,
-            region(30) TYPE c,
-            laufNr(5) TYPE c.
+PARAMETERS: land(20)     TYPE c,
+            kundetyp(10) TYPE c,
+            region(30)   TYPE c,
+            laufnr(5)    TYPE c.
 
 *Erstellung Variablen für Speicherung modifizierte Eingabe Parameters
-DATA: kundeNr(12) TYPE c,
-      landModified(4) TYPE c,
-      kundeTypModified(1) TYPE c,
-      regionModified(2) TYPE c,
-      firstCharAfterMinus(20) TYPE i.
+DATA: kundenr(12)             TYPE c,
+      landmodified(4)         TYPE c,
+      kundetypmodified(1)     TYPE c,
+      regionmodified(2)       TYPE c,
+      firstcharafterminus(20) TYPE i.
 
 *In Abhängigkeit von das Land ändern wir Land Code
 CASE land.
-    WHEN 'DEUTSCHLAND'.
-        landModified := '0049'.
-    WHEN 'USA'.
-        landModified := '001'.
-    WHEN 'RUSSLAND'.
-        landModified := '007'.
-    WHEN OTHERS.
-        landModified := '0000'.
+  WHEN 'DEUTSCHLAND'.
+    landmodified := '0049'.
+  WHEN 'USA'.
+    landmodified := '001'.
+  WHEN 'RUSSLAND'.
+    landmodified := '007'.
+  WHEN OTHERS.
+    landmodified := '0000'.
 ENDCASE.
 
 
 *Für Privat Kunden hat @kundeTypModified Value P, für Geschäfts Kunden Value G
-IF kundeTyp = 'PRIVAT'.
-  kundeTypModified := 'P'.
-ELSEIF kundeTyp = 'GESCHÄFTS'.
-  kundeTypModified := 'G'.
-endif.
+IF kundetyp = 'PRIVAT'.
+  kundetypmodified := 'P'.
+ELSEIF kundetyp = 'GESCHÄFTS'.
+  kundetypmodified := 'G'.
+ENDIF.
 
 *Erst prüfen wir ob es eine Region aus 2 Wörter mit - besteht,
 *wir brauchen 1 Buchstabe und 1 Buchstabe nach -
@@ -40,16 +41,17 @@ endif.
 *da wir erste Buchstabe nach - brauchen, schieben wir diese Position sy-fdpos + 1
 *am Ende konkatinieren beide Buchstaben in @regionModified
 *Alternativ: falls es ein Region keine - hat, dann nehmen wir einfach 1 Buchstabe @region(1)
+
 IF region CA '-'.
-  search region for '-'.
-  firstCharAfterMinus := sy-fdpos + 1.
-  concatenate region(1) region+firstCharAfterMinus(1) into regionModified.
+  SEARCH region FOR '-'.
+  firstcharafterminus := sy-fdpos + 1.
+  CONCATENATE region(1) region+firstcharafterminus(1) INTO regionmodified.
 ELSE.
-  regionModified := region(1).
+  regionmodified := region(1).
 ENDIF.
 
 *hier werden alle modified Ergebnise in ein @kundeNr konkatinieren.
-concatenate landModified kundeTypModified regionModified laufNr into kundeNr.
+CONCATENATE landmodified kundetypmodified regionmodified laufnr INTO kundenr.
 
 *Ausgabe der generierten Kunden Nummer
-WRITE: / 'DIE GENERIERTE KUNDENNUMER LAUTET: <' NO-GAP, kundeNr NO-GAP ,'>'.
+WRITE: / 'DIE GENERIERTE KUNDENNUMER LAUTET: <' NO-GAP, kundenr NO-GAP ,'>'.
