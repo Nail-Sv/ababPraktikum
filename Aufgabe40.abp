@@ -1,0 +1,102 @@
+REPORT z_west13_helloworld.
+*REPORT Z_WEST113_AUFGABE4.
+
+*Eine interne Tabelle auf der Basis eine vordefinierte ZWEST_SALES Tabelle erstellen
+DATA: eintraege    TYPE TABLE OF zwest_sales,
+      wa_eintraege TYPE zwest_sales.
+
+
+wa_eintraege-zno = 75.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Macbook'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '150.00'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+* ADD 1 TO index.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF.
+
+APPEND wa_eintraege TO eintraege.
+
+wa_eintraege-zno = 76.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Play Station 6'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '499.99'.
+
+APPEND wa_eintraege TO eintraege.
+
+wa_eintraege-zno = 77.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'SAP'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '5000.50'.
+
+APPEND wa_eintraege TO eintraege.
+
+
+wa_eintraege-zno = 78.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Google'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '3000.50'.
+
+APPEND wa_eintraege TO eintraege.
+
+
+wa_eintraege-zno = 79.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Bitcoin'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '19238.00'.
+
+APPEND wa_eintraege TO eintraege.
+
+
+*Laut der Aufgabenstellung 5 Sätze aus der internen Tabelle
+*in der Tabelle ZWEST_SALES einsetzen
+LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
+  INSERT INTO zwest_sales VALUES wa_eintraege.
+ENDLOOP.
+
+
+
+
+
+* LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
+* WRITE: / wa_eintraege-znr,
+* wa_eintraege-mandt,
+* wa_eintraege-zerstell,
+* wa_eintraege-zname,
+* wa_eintraege-zartikel,
+* wa_eintraege-zdatum,
+* wa_eintraege-umsatz.
+* ENDLOOP.
+
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: ZWEST_SALES.
+
+SELECT * FROM ZWEST_SALES.
+WRITE: / ' ', ZWEST_SALES-znr,
+              ZWEST_SALES-mandt,
+              ZWEST_SALES-zerstell,
+              ZWEST_SALES-zname,
+              ZWEST_SALES-zartikel,
+              ZWEST_SALES-zdatum,
+              ZWEST_SALES-umsatz.
+ENDSELECT.

@@ -1,0 +1,46 @@
+REPORT Z_WEST13_HELLOWORLD.
+*REPORT Z_WEST113_WS20_AUFGABE5.
+
+
+DATA: eintraege TYPE TABLE OF ZWEST_SALES,
+      wa_eintraege TYPE ZWEST_SALES,
+      tabulator(39) TYPE c VALUE ''.
+
+*Laut der Aufgabenstellung wird es alle notwendigen Daten aus der ZWEST_SALES
+*Tabelle in der Tabelle eintraege aggregiert.
+SELECT * FROM ZWEST_SALES INTO TABLE eintraege
+WHERE zemployee IN ('MEIER', 'SCHMITZ')
+AND zarticel IN ('BIKINI', 'BADEHOSE', 'SONNENCREME', 'TEICHPUMPE 100')
+AND zdate BETWEEN '20120101' AND '20161231'.
+
+*Daten in der Tabelle eintraege werden in einer "vernünftigen" Form ausgegeben.
+*Mit dem @Tabulator wird eine Unterbrechung zwischen den Spaltennamen erstellt.
+LOOP AT eintraege INTO wa_eintraege.
+  AT FIRST.
+    WRITE: / 'zname', tabulator(14), 'zartikel', tabulator(11), 'zjahr', tabulator(2), 'zumsatz'.
+    ULINE.
+  ENDAT.
+
+  WRITE: / wa_eintraege-zemployee, wa_eintraege-zarticel, wa_eintraege-zdate(4), wa_eintraege-zrevenue.
+
+  AT LAST.
+    SUM.
+    ULINE.
+    WRITE: / 'Summe:', tabulator, wa_eintraege-zrevenue.
+  ENDAT.
+ENDLOOP.
+
+
+
+REPORT Z_WEST13_HELLOWORLD.
+TABLES: ZWEST_SALES.
+
+SELECT * FROM ZWEST_SALES.
+WRITE: / ' ', ZWEST_SALES-znr,
+              ZWEST_SALES-mandt,
+              ZWEST_SALES-zerstell,
+              ZWEST_SALES-zname,
+              ZWEST_SALES-zartikel,
+              ZWEST_SALES-zdatum,
+              ZWEST_SALES-umsatz.
+ENDSELECT.

@@ -3,76 +3,86 @@ REPORT Z_WEST13_HELLOWORLD.
 
 *Eine interne Tabelle auf der Basis eine vordefinierte ZWEST_SALES Tabelle erstellen
 DATA: eintraege TYPE TABLE OF ZWEST_SALES,
-      wa_eintraege TYPE ZWEST_SALES.
+      wa_eintraege TYPE ZWEST_SALES,
+      startIndex TYPE i,
+      index TYPE i.
 
-*Datensaetze in den internen Tabelle einfügen
-wa_eintraege-ZNO = -5.
-wa_eintraege-mandt = '904'.
-wa_eintraege-zsapuser = 'WEST113'.
-wa_eintraege-zemployee = 'Nail'.
-wa_eintraege-zarticel = 'Koeftespiess'.
-wa_eintraege-zdate = '20201221'.
-wa_eintraege-zrevenue = '150.00'.
-IF wa_eintraege-zno > 0.
-  APPEND wa_eintraege TO eintraege.
-ELSEIF wa_eintraege-zno < 0.
-  WRITE 'laufende Nummer soll groesser als 0 sein'.
-ENDIF
+startIndex = 1.
+index = startIndex.
 
-wa_eintraege-ZNO = 36.
+*Datensaetze in der internen Tabelle einfügen
+wa_eintraege-ZNO = 79.
 wa_eintraege-mandt = '904'.
 wa_eintraege-zsapuser = 'WEST113'.
 wa_eintraege-zemployee = 'Nail'.
-wa_eintraege-zarticel = 'Play Station 5'.
+wa_eintraege-zarticel = 'Mercedes A Class'.
 wa_eintraege-zdate = '20201221'.
-wa_eintraege-zrevenue = '499.99'.
+wa_eintraege-zrevenue = '15000.00'.
 IF wa_eintraege-zno > 0.
   APPEND wa_eintraege TO eintraege.
+  ADD 1 TO index.
 ELSEIF wa_eintraege-zno < 0.
   WRITE 'laufende Nummer soll groesser als 0 sein'.
-ENDIF
-wa_eintraege-ZNO = 37.
-wa_eintraege-mandt = '904'.
-wa_eintraege-zsapuser = 'WEST113'.
-wa_eintraege-zemployee = 'Nail'.
-wa_eintraege-zarticel = 'SAP'.
-wa_eintraege-zdate = '20201221'.
-wa_eintraege-zrevenue = '5000.50'.
-IF wa_eintraege-zno > 0.
-  APPEND wa_eintraege TO eintraege.
-ELSEIF wa_eintraege-zno < 0.
-  WRITE 'laufende Nummer soll groesser als 0 sein'.
-ENDIF
+ENDIF.
 
-wa_eintraege-ZNO = 38.
+wa_eintraege-ZNO = 80.
 wa_eintraege-mandt = '904'.
 wa_eintraege-zsapuser = 'WEST113'.
 wa_eintraege-zemployee = 'Nail'.
-wa_eintraege-zarticel = 'Google'.
+wa_eintraege-zarticel = 'Mercedes S Class'.
 wa_eintraege-zdate = '20201221'.
-wa_eintraege-zrevenue = '3000.50'.
+wa_eintraege-zrevenue = '49999.99'.
 IF wa_eintraege-zno > 0.
   APPEND wa_eintraege TO eintraege.
+    ADD 1 TO index.
 ELSEIF wa_eintraege-zno < 0.
   WRITE 'laufende Nummer soll groesser als 0 sein'.
-ENDIF
+ENDIF.
+wa_eintraege-ZNO = 81.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Mercedes C Class'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '50000.50'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+    ADD 1 TO index.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF.
 
-wa_eintraege-ZNO = 39.
+wa_eintraege-ZNO = 82.
 wa_eintraege-mandt = '904'.
 wa_eintraege-zsapuser = 'WEST113'.
 wa_eintraege-zemployee = 'Nail'.
-wa_eintraege-zarticel = 'Bitcoin'.
+wa_eintraege-zarticel = 'Mercedes E Class'.
 wa_eintraege-zdate = '20201221'.
-wa_eintraege-zrevenue = '19238.00'.
+wa_eintraege-zrevenue = '30000.50'.
 IF wa_eintraege-zno > 0.
   APPEND wa_eintraege TO eintraege.
+    ADD 1 TO index.
 ELSEIF wa_eintraege-zno < 0.
   WRITE 'laufende Nummer soll groesser als 0 sein'.
-ENDIF
+ENDIF.
+
+wa_eintraege-ZNO = 83.
+wa_eintraege-mandt = '904'.
+wa_eintraege-zsapuser = 'WEST113'.
+wa_eintraege-zemployee = 'Nail'.
+wa_eintraege-zarticel = 'Mercedes GL Class'.
+wa_eintraege-zdate = '20201221'.
+wa_eintraege-zrevenue = '100000.00'.
+IF wa_eintraege-zno > 0.
+  APPEND wa_eintraege TO eintraege.
+    ADD 1 TO index.
+ELSEIF wa_eintraege-zno < 0.
+  WRITE 'laufende Nummer soll groesser als 0 sein'.
+ENDIF.
 
 *Laut der Aufgabenstellung 5 Sätze aus der internen Tabelle
 *in der Tabelle ZWEST_SALES einsetzen
-LOOP AT eintraege INTO wa_eintraege FROM 1 TO 5.
+LOOP AT eintraege INTO wa_eintraege FROM startIndex TO index.
   INSERT INTO ZWEST_SALES VALUES wa_eintraege.
 ENDLOOP.
 
